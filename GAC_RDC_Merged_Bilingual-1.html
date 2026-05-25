@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAC-RDC | Groupe d’Alerte sur la Crise en RDC</title>
+<meta name="description" content="Citizen early warning system on the security, humanitarian and social crisis in DRC.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+:root{
+--drc-blue:#007FFF;
+--drc-yellow:#F7D618;
+--drc-red:#CE1021;
+--deep-blue:#003366;
+--light-bg:#f0f7ff;
+--white:#fff;
+--text-dark:#1a1a1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;line-height:1.6;color:var(--text-dark)}
+nav{
+background:var(--drc-blue);
+color:white;
+padding:1rem 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:1000;
+border-bottom:4px solid var(--drc-yellow);
+}
+.logo{font-weight:bold;font-size:1.4rem}
+.nav-links{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+nav a{text-decoration:none;color:white;font-weight:600}
+nav a:hover,.lang-switch button:hover{color:var(--drc-yellow)}
+.lang-switch button{
+background:none;border:none;color:white;
+font-weight:700;cursor:pointer;font-size:1rem
+}
+.hero{
+background:linear-gradient(rgba(0,51,102,.7),rgba(0,51,102,.7)),
+url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80');
+background-size:cover;
+background-position:center;
+height:75vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+padding:0 20px;
+}
+.hero h1{font-size:3rem;margin-bottom:15px;text-transform:uppercase}
+.hero p{font-size:1.4rem;color:var(--drc-yellow);margin-bottom:25px;font-weight:bold}
+.btn-group{display:flex;gap:15px;flex-wrap:wrap;justify-content:center}
+.btn{
+padding:18px 35px;text-decoration:none;border-radius:50px;
+font-weight:bold;font-size:1rem;border:2px solid var(--drc-yellow);
+transition:.3s
+}
+.btn-red{background:var(--drc-red);color:white}
+.btn-blue{background:var(--drc-blue);color:white;border-color:white}
+.btn:hover{transform:translateY(-3px)}
+.section{padding:80px 10%}
+.section-title{text-align:center;margin-bottom:50px;font-size:2.2rem;color:var(--deep-blue)}
+.section-title::after{
+content:'';display:block;width:60px;height:4px;
+background:var(--drc-yellow);margin:10px auto
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px
+}
+.card{
+background:white;padding:40px;border-radius:12px;
+box-shadow:0 10px 20px rgba(0,0,0,.05);
+border-bottom:6px solid var(--drc-blue);
+transition:.3s;text-align:center
+}
+.card:hover{transform:translateY(-10px);border-bottom-color:var(--drc-yellow)}
+.card i{font-size:3rem;color:var(--drc-blue);margin-bottom:20px}
+.values-section{background:var(--light-bg)}
+.value-tag{
+background:var(--deep-blue);color:var(--drc-yellow);
+padding:15px 25px;border-radius:8px;
+text-align:center;font-weight:bold
+}
+footer{
+background:var(--deep-blue);
+color:white;
+padding:50px 10% 20px;
+text-align:center;
+position:relative;
+}
+.social-icons a{
+color:white;font-size:2rem;margin:0 15px
+}
+.whatsapp-float{
+position:fixed;
+bottom:20px;
+right:20px;
+width:60px;height:60px;
+background:#25D366;
+color:white;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:2rem;
+text-decoration:none;
+box-shadow:0 4px 10px rgba(0,0,0,.3);
+z-index:9999;
+}
+.footer-bottom{
+margin-top:20px;
+border-top:1px solid rgba(255,255,255,.2);
+padding-top:15px;
+font-size:.9rem
+}
+@media(max-width:768px){
+.hero h1{font-size:2rem}
+.section{padding:50px 5%}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="logo">GAC-RDC</div>
+<div class="nav-links">
+<a href="#about" data-fr="À Propos" data-en="About">À Propos</a>
+<a href="#mission" data-fr="Mission" data-en="Mission">Mission</a>
+<a href="news.html" data-fr="Actualités" data-en="News">Actualités</a>
+<a href="admin.html"><i class="fas fa-user-lock"></i></a>
+
+<div class="lang-switch">
+<button onclick="setLanguage('fr')">FR</button> |
+<button onclick="setLanguage('en')">EN</button>
+</div>
+</div>
+</nav>
+
+<section class="hero">
+<h1 data-fr="Groupe d’Alerte sur la Crise en RDC" data-en="Crisis Alert Group in DRC">
+Groupe d’Alerte sur la Crise en RDC
+</h1>
+
+<p data-fr="« Alerter pour protéger, informer pour sauver »"
+data-en="“Alert to protect, inform to save”">
+« Alerter pour protéger, informer pour sauver »
+</p>
+
+<div class="btn-group">
+<a href="news.html" class="btn btn-blue"
+data-fr="VOIR LES INFOS"
+data-en="VIEW NEWS">
+VOIR LES INFOS
+</a>
+</div>
+</section>
+
+<section class="section" id="about">
+<h2 class="section-title"
+data-fr="Engagement Citoyen pour la RDC"
+data-en="Citizen Commitment for DRC">
+Engagement Citoyen pour la RDC
+</h2>
+
+<div style="text-align:center;max-width:900px;margin:0 auto;font-size:1.1rem">
+<p data-fr="Le GAC-RDC est une plateforme citoyenne dédiée à la surveillance et à la diffusion d’informations cruciales sur la situation sécuritaire, humanitaire et sociale en République Démocratique du Congo."
+data-en="GAC-RDC is a citizen platform dedicated to monitoring and sharing critical information about the security, humanitarian and social situation in the Democratic Republic of Congo.">
+Le GAC-RDC est une plateforme citoyenne dédiée...
+</p>
+</div>
+</section>
+
+<section class="section values-section" id="mission">
+<div class="grid">
+<div class="card">
+<i class="fas fa-shield-alt"></i>
+<h3 data-fr="Nos Objectifs" data-en="Our Goals">Nos Objectifs</h3>
+<p data-fr="Système d’alerte rapide, information en temps réel et mobilisation internationale."
+data-en="Rapid alert system, real-time information and international mobilization.">
+Système d’alerte rapide
+</p>
+</div>
+
+<div class="card">
+<i class="fas fa-hands-helping"></i>
+<h3 data-fr="Notre Mission" data-en="Our Mission">Notre Mission</h3>
+<p data-fr="Collecter, vérifier et diffuser des informations fiables."
+data-en="Collect, verify and distribute reliable information.">
+Collecter, vérifier et diffuser...
+</p>
+</div>
+
+<div class="card">
+<i class="fas fa-flag"></i>
+<h3 data-fr="Notre Vision" data-en="Our Vision">Notre Vision</h3>
+<p data-fr="Une RDC stable, pacifiée et respectueuse des droits humains."
+data-en="A stable, peaceful DRC that respects human rights.">
+Une RDC stable...
+</p>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2 class="section-title"
+data-fr="Nos Valeurs Fondamentales"
+data-en="Our Core Values">
+Nos Valeurs Fondamentales
+</h2>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+<div class="value-tag" data-fr="VÉRITÉ" data-en="TRUTH">VÉRITÉ</div>
+<div class="value-tag" data-fr="NEUTRALITÉ" data-en="NEUTRALITY">NEUTRALITÉ</div>
+<div class="value-tag" data-fr="SOLIDARITÉ" data-en="SOLIDARITY">SOLIDARITÉ</div>
+<div class="value-tag" data-fr="RESPONSABILITÉ" data-en="RESPONSIBILITY">RESPONSABILITÉ</div>
+</div>
+</section>
+
+<footer>
+<h2 data-fr="REJOIGNEZ LE RÉSEAU" data-en="JOIN THE NETWORK">REJOIGNEZ LE RÉSEAU</h2>
+<p><i class="fas fa-envelope"></i> gacrdcgroupe@gmail.com</p>
+
+<div class="social-icons">
+<a href="https://www.facebook.com/profile.php?id=61574395425258" target="_blank">
+<i class="fab fa-facebook"></i>
+</a>
+</div>
+
+<div class="footer-bottom">
+<p>© 2026 GAC-RDC</p>
+</div>
+</footer>
+
+<a href="https://wa.me/243853424522" target="_blank" class="whatsapp-float">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+function setLanguage(lang){
+document.querySelectorAll('[data-fr]').forEach(el=>{
+el.innerHTML = el.getAttribute('data-' + lang);
+});
+document.documentElement.lang = lang;
+localStorage.setItem('language', lang);
+}
+window.onload = ()=>{
+const savedLang = localStorage.getItem('language') || 'fr';
+setLanguage(savedLang);
+}
+</script>
+
+</body>
+</html>
