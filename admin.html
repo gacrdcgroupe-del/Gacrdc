@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | GAC-RDC</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        :root {
+            --drc-blue: #007FFF;
+            --drc-yellow: #F7D618;
+            --drc-red: #CE1021;
+            --deep-blue: #003366;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #eef2f5;
+            margin: 0;
+        }
+
+        #login-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--deep-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            width: 350px;
+            text-align: center;
+            border-bottom: 5px solid var(--drc-yellow);
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        #dashboard {
+            display: none;
+            padding: 40px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .typing-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+
+        .upload-zone {
+            border: 2px dashed var(--drc-blue);
+            background: white;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        .editor-panel {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .publish-btn {
+            background: var(--drc-red);
+            color: white;
+            padding: 15px;
+            border: none;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .publish-btn:hover {
+            opacity: 0.9;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-overlay">
+    <div class="login-box">
+        <h2 style="color: var(--deep-blue);">GAC-RDC Admin</h2>
+
+        <input type="email" id="email" placeholder="Email Admin">
+        <input type="password" id="pass" placeholder="Mot de passe">
+
+        <button class="publish-btn"
+                style="background: var(--drc-blue);"
+                onclick="login()">
+            Se Connecter
+        </button>
+    </div>
+</div>
+
+<div id="dashboard">
+
+    <div class="admin-header">
+        <h1>Espace de Publication</h1>
+
+        <a href="index.html"
+           style="text-decoration:none;
+           color: var(--drc-blue);
+           font-weight:bold;">
+            Retour au Site
+        </a>
+    </div>
+
+    <div class="typing-grid">
+
+        <div class="upload-zone"
+             onclick="document.getElementById('f').click()">
+
+            <i class="fas fa-image"
+               style="font-size: 3rem;
+               color: var(--drc-blue);"></i>
+
+            <p>Joindre une photo professionnelle</p>
+
+            <input type="file"
+                   id="f"
+                   hidden
+                   accept="image/*"
+                   onchange="preview(this)">
+
+            <img id="p"
+                 style="width:100%;
+                 margin-top:20px;
+                 display:none;
+                 border-radius:8px;">
+        </div>
+
+        <div class="editor-panel">
+
+            <input type="text"
+                   id="t"
+                   placeholder="Titre de l'Actualité...">
+
+            <select id="c">
+                <option>Sécurité</option>
+                <option>Humanitaire</option>
+                <option>Social</option>
+            </select>
+
+            <textarea id="msg"
+                      style="height:300px"
+                      placeholder="Saisissez votre contenu ici..."></textarea>
+
+            <button class="publish-btn" onclick="send()">
+                PUBLIER L'ALERTE
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    // SUPABASE CONFIG
+    const supabaseUrl = 'https://napfvyvxlmqycuvhkvch.supabase.co';
+
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5hcGZ2eXZ4bG1xeWN1dmhrdmNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NDgxMTUsImV4cCI6MjA5NTIyNDExNX0.gJzh6m-YrFUqM_6MwlHw6DLVaZV7Fr9_0Z5bLzgFnzo';
+
+    const supabase = window.supabase.createClient(
+        supabaseUrl,
+        supabaseKey
+    );
+
+
+    // LOGIN
+    async function login() {
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('pass').value;
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password
+        });
+
+        if (error) {
+            alert('Erreur: ' + error.message);
+            return;
+        }
+
+        document.getElementById('login-overlay').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+    }
+
+
+    // IMAGE PREVIEW
+    function preview(i) {
+
+        const [file] = i.files;
+
+        if (file) {
+            document.getElementById('p').src = URL.createObjectURL(file);
+            document.getElementById('p').style.display = 'block';
+        }
+    }
+
+
+    // SEND NEWS
+    async function send() {
+
+        const title = document.getElementById('t').value;
+        const category = document.getElementById('c').value;
+        const content = document.getElementById('msg').value;
+
+        const imageFile = document.getElementById('f').files[0];
+
+        let imageUrl = '';
+
+
+        // IMAGE UPLOAD
+        if (imageFile) {
+
+            const fileName = Date.now() + '-' + imageFile.name;
+
+            const { data: uploadData, error: uploadError } = await supabase
+                .storage
+                .from('news-images')
+                .upload(fileName, imageFile);
+
+            if (uploadError) {
+                alert('Erreur upload image');
+                return;
+            }
+
+            const { data } = supabase
+                .storage
+                .from('news-images')
+                .getPublicUrl(fileName);
+
+            imageUrl = data.publicUrl;
+        }
+
+
+        // INSERT NEWS
+        const { error } = await supabase
+            .from('news')
+            .insert([
+                {
+                    title,
+                    category,
+                    content,
+                    image: imageUrl,
+                    created_at: new Date()
+                }
+            ]);
+
+
+        if (error) {
+            alert('Erreur publication');
+            console.error(error);
+            return;
+        }
+
+
+        alert('Actualité publiée avec succès !');
+
+        document.getElementById('t').value = '';
+        document.getElementById('msg').value = '';
+    }
+
+</script>
+
+</body>
+</html>
