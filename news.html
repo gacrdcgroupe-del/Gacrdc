@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Actualités | GAC-RDC</title>
+
+<meta name="description" content="Actualités et alertes citoyennes du GAC-RDC concernant la situation sécuritaire, humanitaire et sociale en RDC.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+:root{
+--drc-blue:#007FFF;
+--drc-yellow:#F7D618;
+--drc-red:#CE1021;
+--deep-blue:#003366;
+--light-bg:#f0f7ff;
+--white:#ffffff;
+--text-dark:#1a1a1a;
+--gray:#666;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#f4f8fc;
+color:var(--text-dark);
+line-height:1.7;
+}
+
+/* NAVBAR */
+nav{
+background:var(--drc-blue);
+color:white;
+padding:1rem 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:1000;
+border-bottom:4px solid var(--drc-yellow);
+}
+
+.logo{
+font-size:1.5rem;
+font-weight:800;
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+font-weight:700;
+transition:.3s;
+}
+
+nav a:hover{
+color:var(--drc-yellow);
+}
+
+/* HERO */
+.hero-news{
+height:45vh;
+background:
+linear-gradient(rgba(0,51,102,.75),rgba(0,51,102,.75)),
+url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1600&auto=format&fit=crop');
+background-size:cover;
+background-position:center;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+color:white;
+}
+
+.hero-news h1{
+font-size:3rem;
+margin-bottom:15px;
+text-transform:uppercase;
+}
+
+.hero-news p{
+font-size:1.2rem;
+color:var(--drc-yellow);
+font-weight:bold;
+max-width:700px;
+}
+
+/* MAIN CONTAINER */
+.container{
+max-width:1200px;
+margin:auto;
+padding:70px 5%;
+}
+
+/* SECTION TITLE */
+.section-title{
+font-size:2.3rem;
+color:var(--deep-blue);
+margin-bottom:50px;
+text-align:center;
+position:relative;
+}
+
+.section-title::after{
+content:'';
+width:70px;
+height:4px;
+background:var(--drc-yellow);
+display:block;
+margin:12px auto 0;
+border-radius:10px;
+}
+
+/* NEWS GRID */
+.news-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+gap:35px;
+}
+
+/* NEWS CARD */
+.news-card{
+background:white;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+transition:.35s;
+display:flex;
+flex-direction:column;
+}
+
+.news-card:hover{
+transform:translateY(-10px);
+}
+
+.news-image{
+position:relative;
+overflow:hidden;
+}
+
+.news-image img{
+width:100%;
+height:260px;
+object-fit:cover;
+transition:.5s;
+}
+
+.news-card:hover img{
+transform:scale(1.05);
+}
+
+.category{
+position:absolute;
+top:15px;
+left:15px;
+background:var(--drc-red);
+color:white;
+padding:8px 15px;
+font-size:.8rem;
+font-weight:700;
+border-radius:50px;
+letter-spacing:.5px;
+}
+
+.news-content{
+padding:28px;
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+.news-date{
+font-size:.9rem;
+color:var(--gray);
+margin-bottom:10px;
+}
+
+.news-content h2{
+font-size:1.4rem;
+margin-bottom:15px;
+color:var(--deep-blue);
+}
+
+.news-content p{
+color:#555;
+margin-bottom:20px;
+flex:1;
+}
+
+/* BUTTON */
+.read-btn{
+display:inline-block;
+padding:12px 22px;
+background:var(--drc-blue);
+color:white;
+text-decoration:none;
+border-radius:50px;
+font-weight:700;
+transition:.3s;
+width:fit-content;
+}
+
+.read-btn:hover{
+background:var(--deep-blue);
+}
+
+/* INTERACTIONS */
+.interaction-bar{
+border-top:1px solid #eee;
+padding:18px 25px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:15px;
+}
+
+.actions{
+display:flex;
+gap:15px;
+}
+
+.action-btn{
+background:none;
+border:none;
+cursor:pointer;
+font-weight:700;
+color:#666;
+display:flex;
+align-items:center;
+gap:8px;
+font-size:.95rem;
+transition:.3s;
+}
+
+.action-btn:hover{
+color:var(--drc-red);
+}
+
+.action-btn.liked{
+color:var(--drc-red);
+}
+
+.comments-section{
+padding:0 25px 25px;
+display:none;
+}
+
+.comment-input{
+width:100%;
+padding:14px 18px;
+border:1px solid #ddd;
+border-radius:30px;
+font-size:1rem;
+outline:none;
+margin-top:10px;
+}
+
+.comment-input:focus{
+border-color:var(--drc-blue);
+}
+
+/* ALERT SECTION */
+.alert-section{
+margin-top:90px;
+background:linear-gradient(135deg,var(--deep-blue),#004b99);
+border-radius:20px;
+padding:60px 40px;
+color:white;
+text-align:center;
+}
+
+.alert-section h2{
+font-size:2rem;
+margin-bottom:20px;
+}
+
+.alert-section p{
+max-width:700px;
+margin:auto;
+margin-bottom:30px;
+font-size:1.05rem;
+}
+
+.alert-btn{
+display:inline-block;
+padding:16px 30px;
+background:var(--drc-red);
+color:white;
+text-decoration:none;
+font-weight:700;
+border-radius:50px;
+transition:.3s;
+}
+
+.alert-btn:hover{
+transform:translateY(-4px);
+}
+
+/* FOOTER */
+footer{
+background:var(--deep-blue);
+color:white;
+padding:60px 10% 20px;
+margin-top:80px;
+text-align:center;
+}
+
+.social-icons{
+margin:25px 0;
+}
+
+.social-icons a{
+color:white;
+font-size:2rem;
+margin:0 12px;
+transition:.3s;
+}
+
+.social-icons a:hover{
+color:var(--drc-yellow);
+}
+
+.footer-bottom{
+margin-top:20px;
+padding-top:20px;
+border-top:1px solid rgba(255,255,255,.2);
+font-size:.9rem;
+}
+
+/* WHATSAPP FLOAT */
+.whatsapp-float{
+position:fixed;
+bottom:20px;
+right:20px;
+width:65px;
+height:65px;
+background:#25D366;
+color:white;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:2rem;
+text-decoration:none;
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+z-index:999;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+.hero-news{
+height:55vh;
+}
+
+.hero-news h1{
+font-size:2rem;
+}
+
+.hero-news p{
+font-size:1rem;
+}
+
+.section-title{
+font-size:1.8rem;
+}
+
+.news-content h2{
+font-size:1.2rem;
+}
+
+.alert-section{
+padding:45px 20px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+
+<div class="logo">GAC-RDC</div>
+
+<div class="nav-links">
+<a href="index.html">Accueil</a>
+<a href="news.html">Actualités</a>
+<a href="#"><i class="fas fa-bell"></i> Alertes</a>
+<a href="#"><i class="fas fa-globe"></i> International</a>
+</div>
+
+</nav>
+
+<!-- HERO -->
+<section class="hero-news">
+
+<h1>Flux d’Actualités RDC</h1>
+
+<p>
+Informations citoyennes, alertes sécuritaires et couverture humanitaire en temps réel.
+</p>
+
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+<h2 class="section-title">Dernières Informations</h2>
+
+<div class="news-grid">
+
+<!-- CARD 1 -->
+<article class="news-card">
+
+<div class="news-image">
+<img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1200&auto=format&fit=crop" alt="Sécurité RDC">
+<span class="category">SÉCURITÉ</span>
+</div>
+
+<div class="news-content">
+
+<div class="news-date">
+<i class="fas fa-clock"></i> 24 Mai 2026
+</div>
+
+<h2>Surveillance renforcée dans la zone Est</h2>
+
+<p>
+Des rapports citoyens signalent des mouvements inhabituels dans plusieurs localités de l’Est de la RDC. Les équipes locales continuent la vérification des informations.
+</p>
+
+<a href="#" class="read-btn">Lire Plus</a>
+
+</div>
+
+<div class="interaction-bar">
+
+<div class="actions">
+<button class="action-btn" onclick="toggleLike(this)">
+<i class="fas fa-heart"></i> Like
+</button>
+
+<button class="action-btn" onclick="toggleComments('c1')">
+<i class="fas fa-comment"></i> Commenter
+</button>
+</div>
+
+<div>
+<i class="fas fa-share-alt"></i>
+</div>
+
+</div>
+
+<div class="comments-section" id="c1">
+<input type="text" class="comment-input" placeholder="Écrire un commentaire...">
+</div>
+
+</article>
+
+<!-- CARD 2 -->
+<article class="news-card">
+
+<div class="news-image">
+<img src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?q=80&w=1200&auto=format&fit=crop" alt="Humanitaire">
+<span class="category">HUMANITAIRE</span>
+</div>
+
+<div class="news-content">
+
+<div class="news-date">
+<i class="fas fa-clock"></i> 23 Mai 2026
+</div>
+
+<h2>Déplacement de familles dans le Nord-Kivu</h2>
+
+<p>
+Plusieurs familles ont quitté leurs villages suite aux tensions signalées dans certaines zones rurales. Des besoins urgents en assistance humanitaire sont rapportés.
+</p>
+
+<a href="#" class="read-btn">Lire Plus</a>
+
+</div>
+
+<div class="interaction-bar">
+
+<div class="actions">
+<button class="action-btn" onclick="toggleLike(this)">
+<i class="fas fa-heart"></i> Like
+</button>
+
+<button class="action-btn" onclick="toggleComments('c2')">
+<i class="fas fa-comment"></i> Commenter
+</button>
+</div>
+
+<div>
+<i class="fas fa-share-alt"></i>
+</div>
+
+</div>
+
+<div class="comments-section" id="c2">
+<input type="text" class="comment-input" placeholder="Écrire un commentaire...">
+</div>
+
+</article>
+
+<!-- CARD 3 -->
+<article class="news-card">
+
+<div class="news-image">
+<img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=1200&auto=format&fit=crop" alt="Diplomatie">
+<span class="category">DIPLOMATIE</span>
+</div>
+
+<div class="news-content">
+
+<div class="news-date">
+<i class="fas fa-clock"></i> 22 Mai 2026
+</div>
+
+<h2>Réactions internationales face à la crise</h2>
+
+<p>
+Des organisations internationales appellent à une mobilisation renforcée afin d’assurer la protection des civils et la stabilité régionale.
+</p>
+
+<a href="#" class="read-btn">Lire Plus</a>
+
+</div>
+
+<div class="interaction-bar">
+
+<div class="actions">
+<button class="action-btn" onclick="toggleLike(this)">
+<i class="fas fa-heart"></i> Like
+</button>
+
+<button class="action-btn" onclick="toggleComments('c3')">
+<i class="fas fa-comment"></i> Commenter
+</button>
+</div>
+
+<div>
+<i class="fas fa-share-alt"></i>
+</div>
+
+</div>
+
+<div class="comments-section" id="c3">
+<input type="text" class="comment-input" placeholder="Écrire un commentaire...">
+</div>
+
+</article>
+
+</div>
+
+<!-- ALERT SECTION -->
+<section class="alert-section">
+
+<h2>Envoyer une Alerte Citoyenne</h2>
+
+<p>
+Le GAC-RDC encourage les citoyens à signaler les informations importantes liées à la sécurité, aux droits humains et aux situations humanitaires.
+</p>
+
+<a href="https://wa.me/243853424522" class="alert-btn" target="_blank">
+<i class="fab fa-whatsapp"></i> Envoyer une Alerte
+</a>
+
+</section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+
+<h2>REJOIGNEZ LE RÉSEAU</h2>
+
+<p>
+<i class="fas fa-envelope"></i>
+gacrdcgroupe@gmail.com
+</p>
+
+<div class="social-icons">
+
+<a href="https://www.facebook.com/profile.php?id=61574395425258" target="_blank">
+<i class="fab fa-facebook"></i>
+</a>
+
+<a href="#">
+<i class="fab fa-twitter"></i>
+</a>
+
+<a href="#">
+<i class="fab fa-instagram"></i>
+</a>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 GAC-RDC — Tous droits réservés
+</div>
+
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/243853424522" target="_blank" class="whatsapp-float">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+
+function toggleComments(id){
+const section = document.getElementById(id);
+
+if(section.style.display === 'block'){
+section.style.display = 'none';
+}else{
+section.style.display = 'block';
+}
+}
+
+function toggleLike(button){
+button.classList.toggle('liked');
+}
+
+</script>
+
+</body>
+</html>
